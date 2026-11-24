@@ -1,0 +1,14 @@
+{
+  "name": "taskmarket-market-visualizer",
+  "version": "1.0.0",
+  "description": "Read-only visualizer of the public Taskmarket API. Made for a paid Taskmarket bounty; not an official Taskmarket product.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "refresh": "node scripts/fetch-data.mjs",
+    "dev": "node scripts/fetch-data.mjs && npx --yes serve public",
+    "deploy": "node scripts/fetch-data.mjs && npx --yes vercel@latest deploy --prod --yes"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "outputDirectory": "public",
+  "buildCommand": "",
+  "cleanUrls": true,
+  "headers": [
+    { "source": "/data.json", "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, s-maxage=300, must-revalidate" }] },
+    { "source": "/(fonts|assets)/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] },
+    { "source": "/(app.js|style.css)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, s-maxage=300, must-revalidate" }] }
+  ]
+}

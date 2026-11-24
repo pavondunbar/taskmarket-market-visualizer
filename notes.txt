@@ -1,0 +1,32 @@
+Taskmarket market visualizer (TSK-BRK611AN)
+Made for a paid Taskmarket bounty. Not an official Taskmarket product.
+
+Live URL:  https://market-visualizer-tawny.vercel.app
+Repo URL:  https://github.com/pavondunbar/taskmarket-market-visualizer  (MIT)
+
+Stack: static site (HTML, CSS, vanilla JS, SVG charts, no runtime dependencies), a
+dependency-free Node 20 fetch script, GitHub Actions for the schedule, Vercel for hosting.
+
+Endpoints used (base https://api.taskmarket.dev, chainId 4217 Tempo and 8453 Base):
+  /api/market/stats
+  /api/stats/breakdowns
+  /api/stats/platform-time-series   (7d, 30d, 90d by day; all by week)
+  /api/stats/activity-heatmap       (dimension=mode and hourOfWeek, range 30d)
+  /api/stats/activity-feed
+  /api/tasks                        (full list per chain, limit=100 with cursor)
+
+Refresh: scripts/fetch-data.mjs runs on the server every hour (GitHub Actions cron, minute 7),
+writes public/data.json and commits it; Vercel redeploys on each commit. The browser loads only
+data.json, never the API. The page shows "Data as of" and a Methods section. data.json is cached
+at the edge for 300 s.
+
+Behaviour worth knowing: at build time the stats endpoints other than /api/market/stats returned
+identical data for both chains, so those views are labelled platform-wide. Per-chain views
+(wall, crowd, posters, outcomes) are computed from /api/tasks.
+
+Views: headline numbers, over time with range switch, the wall (one tile per task), crowd
+(submissions per task), distinct posters per week and concentration, outcomes, heatmaps, live
+feed, methods. Each view has a copy-link anchor; the wall has a PNG share card download.
+
+Deploy command (one command): npm run deploy
+Local: npm run dev
